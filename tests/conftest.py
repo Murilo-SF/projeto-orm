@@ -1,4 +1,7 @@
+from flask import Flask
+from flask_sqlalchemy.session import Session
 import pytest
+from sqlalchemy.orm.scoping import scoped_session
 from Projeto_ORM.app import create_app
 from Projeto_ORM.extensions import db
 from Projeto_ORM.models.tabela_usuario import Usuario
@@ -19,10 +22,14 @@ def app():
 import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent # C:\Users\admin\CODES PYTHON\venv\Projeto_ORM/tests/conftest.py | Conforme o .parent, "voltamos" uma pasta no caminho. 
+
+alembic_cfg = Config(str(BASE_DIR / "alembic.ini"))
+
+print (BASE_DIR, '\n', alembic_cfg.config_file_name)  # alembic... -> C:\Users\admin\CODES PYTHON\venv\Projeto_ORM\alembic.ini
 
 @pytest.fixture(scope="session")
-def prepare_database(app):
+def prepare_database(app: Flask):
 
     alembic_cfg = Config(str(BASE_DIR / "alembic.ini"))
     alembic_cfg.set_main_option("script_location", str(BASE_DIR / "migrations"))
@@ -30,7 +37,7 @@ def prepare_database(app):
 
 
 @pytest.fixture(scope="function")
-def db_session(prepare_database):
+def db_session(prepare_database: None):
 
     session = db.session
 
@@ -42,14 +49,14 @@ def db_session(prepare_database):
 
 
 @pytest.fixture(scope="function")
-def client(app, prepare_database): # Esta fixture recebe o prepare_database, apenas por questão de arquitetura, para não acontecer de rodarmos sem o banco estar preparado.
+def client(app: Flask, prepare_database: None): # Esta fixture recebe o prepare_database, apenas por questão de arquitetura, para não acontecer de rodarmos sem o banco estar preparado.
     return app.test_client()
 
 
 @pytest.fixture(scope="function")
-def criar_usuario_admin(db_session, client):
+def admin_user(db_session):
 
-    usuario_admin = Usuario(nome="Admin teste", senha=generate_password_hash("123456"), role="admin")
+    usuario_admin = Usuario(nome="Admin Teste", senha=generate_password_hash("123456"), role="admin")
 
     db_session.add(usuario_admin)
 
@@ -58,4 +65,3 @@ def criar_usuario_admin(db_session, client):
     db_session.flush()
         
     return usuario_admin
-
