@@ -1,7 +1,7 @@
 # Descrição de testes para as rotas do usuário
 
-# Listar Usuários
-#     Teste feliz, Funcionamento 100%
+# Listar Usuários (usuário comum)
+#     Teste feliz, Funcionamento 100% (Admin)
 #     token expirado
 #     Sem token
 #     Não é admin
