@@ -52,7 +52,7 @@ def db_session(prepare_database):
 
 # ---------------------------------------------------------------->>>fn app<<<----------------------------------------------------------------
 @pytest.fixture(scope="function")
-def client(app: Flask, prepare_database): # Esta fixture recebe o prepare_database, apenas por questão de arquitetura, para não acontecer de rodarmos sem o banco estar preparado.
+def client(app, prepare_database): # Esta fixture recebe o prepare_database, apenas por questão de arquitetura, para não acontecer de rodarmos sem o banco estar preparado.
     return app.test_client()
 
 # ---------------------------------------------------------------->>>fn admin_user<<<----------------------------------------------------------------
@@ -70,7 +70,7 @@ def admin_user(db_session):
     return usuario_admin
 
 # ---------------------------------------------------------------->>>fn usuario_comum<<<----------------------------------------------------------------
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def usuario_comum(db_session):
     usuario = Usuario(nome="Usuário Comum", senha=generate_password_hash("123456"), role="user")
 
@@ -90,3 +90,10 @@ def pedido_admin(admin_user, db_session):
     db_session.flush()
 
     return pedido
+
+# ---------------------------------------------------------------->>>fn token_admin<<<----------------------------------------------------------------
+@pytest.fixture(scope="function")
+def token_admin(client, admin_user):
+    resposta = client.post("/auth/login", json={"nome":admin_user.nome, "senha":"123456"})
+    json = resposta.get_json()
+    return json
