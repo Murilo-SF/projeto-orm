@@ -80,6 +80,32 @@ def usuario_comum(db_session):
 
     return usuario
 
+
+# ---------------------------------------------------------------->>>fn token_admin<<<----------------------------------------------------------------
+@pytest.fixture(scope="function")
+def token_admin(client, admin_user):
+    resposta = client.post("/auth/login", json={"nome":admin_user.nome, "senha":"123456"})
+    return resposta.get_json()["token"]
+
+# ---------------------------------------------------------------->>>fn headers_admin<<<----------------------------------------------------------------
+@pytest.fixture(scope="function")
+def headers_admin(token_admin):
+    headers = {"Authorization":f"Bearer {token_admin}"}
+    return headers
+
+# ---------------------------------------------------------------->>>fn token_usuario<<<----------------------------------------------------------------
+@pytest.fixture(scope="function")
+def token_usuario(client, usuario_comum):
+    resposta = client.post("/auth/login", json={"nome":usuario_comum.nome, "senha":"123456"})
+    return resposta.get_json()["token"]
+
+# ---------------------------------------------------------------->>>fn headers_usuario<<<----------------------------------------------------------------
+@pytest.fixture(scope="function")
+def headers_usuario(token_usuario):
+    headers = {"Authorization":f"Bearer {token_usuario}"}
+    return headers
+
+
 # ---------------------------------------------------------------->>>fn pedido_admin<<<----------------------------------------------------------------
 @pytest.fixture(scope="function")
 def pedido_admin(admin_user, db_session):
@@ -90,10 +116,3 @@ def pedido_admin(admin_user, db_session):
     db_session.flush()
 
     return pedido
-
-# ---------------------------------------------------------------->>>fn token_admin<<<----------------------------------------------------------------
-@pytest.fixture(scope="function")
-def token_admin(client, admin_user):
-    resposta = client.post("/auth/login", json={"nome":admin_user.nome, "senha":"123456"})
-    json = resposta.get_json()
-    return json

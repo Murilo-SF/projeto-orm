@@ -171,9 +171,8 @@ def test_usuario_admin_existe(admin_user, db_session):
     assert usuario_admin.role == "admin"
 
 
-def test_token_admin(token_admin):
-    assert "token" in token_admin # token_admin retorna a resposta json.
-    assert isinstance(token_admin["token"], str)
+def test_token_admin(token_admin): # token_admin retorna o token.
+    assert isinstance(token_admin, str)
 
 
 def test_deletar_usuario(db_session):
