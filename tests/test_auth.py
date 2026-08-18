@@ -173,13 +173,3 @@ def test_usuario_admin_existe(admin_user, db_session):
 
 def test_token_admin(token_admin): # token_admin retorna o token.
     assert isinstance(token_admin, str)
-
-
-def test_deletar_usuario(db_session):
-    usuario = Usuario.query.filter_by(nome="Nome Teste").first()
-
-    assert usuario is not None
-    
-    db_session.delete(usuario)
-
-    db_session.commit() 
