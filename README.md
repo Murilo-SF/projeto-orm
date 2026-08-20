@@ -36,7 +36,7 @@ API desenvolvida em Python focada em boas práticas de backend, autenticação s
 
 ### 2. Passo a passo
 
-## ```bash
+```bash
 
 ## Clone o repositório
 git clone https://github.com/Murilo-SF/projeto-orm.git
@@ -58,10 +58,10 @@ flask db upgrade
 ## Execute a aplicação
 python app.py
 
-- 👤 Desenvolvedor
-- Projeto desenvolvido por Murilo da Silva Faccin.
+👤 Desenvolvedor
+Projeto desenvolvido por Murilo da Silva Faccin.
 
-- Estou estudando desenvolvimento de software de forma autodidata, focado em criar aplicações backend robustas, organizadas e testadas. Em busca da primeira oportunidade na área de Tecnologia!
+Estou estudando desenvolvimento de software de forma autodidata, focado em criar aplicações backend robustas, organizadas e testadas. Em busca da primeira oportunidade na área de Tecnologia.
 
-- 💼 LinkedIn: linkedin.com/in/murilo-da-silva-faccin-94257631a
-- 🐙 GitHub: @Murilo-SF
+💼 LinkedIn: linkedin.com/in/murilo-da-silva-faccin-94257631a
+🐙 GitHub: @Murilo-SF
