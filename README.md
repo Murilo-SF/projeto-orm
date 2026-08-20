@@ -57,12 +57,12 @@ flask db upgrade
 
 ## Execute a aplicação
 python app.py
-
-👤 Desenvolvedor
-Projeto desenvolvido por Murilo da Silva Faccin.
-
-Estou estudando desenvolvimento de software de forma autodidata, focado em criar aplicações backend robustas, organizadas e testadas. Em busca da primeira oportunidade na área de Tecnologia.
 ```
 
-💼 LinkedIn: linkedin.com/in/murilo-da-silva-faccin-94257631a
-🐙 GitHub: @Murilo-SF
+<br>👤 Desenvolvedor
+<br>Projeto desenvolvido por Murilo da Silva Faccin.
+
+<br>Estou estudando desenvolvimento de software de forma autodidata, focado em criar aplicações backend robustas, organizadas e testadas. Em busca da primeira oportunidade na área de Tecnologia.
+
+<br>💼 LinkedIn: linkedin.com/in/murilo-da-silva-faccin-94257631a
+<br>🐙 GitHub: @Murilo-SF
