@@ -46,6 +46,7 @@ cd projeto-orm
 
 ## Crie e ative o ambiente virtual (venv)
 python -m venv venv
+
 ## No Windows:
 venv\Scripts\activate
 
