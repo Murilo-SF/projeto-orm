@@ -10,7 +10,7 @@ API desenvolvida em Python focada em boas práticas de backend, autenticação s
 - **ORM & Banco de Dados:** [SQLAlchemy](https://www.sqlalchemy.org/) para manipulação do banco via objetos Python e **MySQL** para persistência de dados.
 - **Validação de Dados:** [Marshmallow](https://marshmallow.readthedocs.io/) para serialização e validação dos dados da API.
 - **Autenticação:** [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/) para geração e controle de Tokens JWT (JSON Web Token).
-- **Segurança:** `werkzeug.security` para criptografia/hash seguro de senhas.
+- **Segurança:** [werkzeug](https://werkzeug.palletsprojects.com/en/stable/) para criptografia/hash seguro de senhas.
 - **Migrações:** [Alembic](https://alembic.sqlalchemy.org/) para versionamento e migração do schema do banco de dados.
 - **Testes Automatizados:** [Pytest](https://docs.pytest.org/) para execução de testes unitários e de integração.
 
