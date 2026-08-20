@@ -36,26 +36,26 @@ API desenvolvida em Python focada em boas práticas de backend, autenticação s
 
 ### 2. Passo a passo
 
-# ```bash
+## ```bash
 
-# Clone o repositório
+## Clone o repositório
 git clone https://github.com/Murilo-SF/projeto-orm.git
 
-# Acesse a pasta do projeto
+## Acesse a pasta do projeto
 cd projeto-orm
 
-# Crie e ative o ambiente virtual (venv)
+## Crie e ative o ambiente virtual (venv)
 python -m venv venv
-# No Windows:
+## No Windows:
 venv\Scripts\activate
 
-# Instale as dependências
+## Instale as dependências
 pip install -r requirements.txt
 
-# Execute as migrações do banco de dados (Alembic)
+## Execute as migrações do banco de dados (Alembic)
 flask db upgrade
 
-# Execute a aplicação
+## Execute a aplicação
 python app.py
 
 👤 Desenvolvedor
