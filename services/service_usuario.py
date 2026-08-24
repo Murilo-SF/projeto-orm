@@ -53,7 +53,7 @@ def atualizar_usuario(id, data):
     usuario.role = data.get('role', usuario.role)
     usuario.email = data.get('email', usuario.email)
 
-    db.session.commit()
+    db.session.flush()
 
     return jsonify ({"message":"Usuário atualizado com sucesso!", "usuario":usuario.to_dict()}), 200
 
@@ -66,6 +66,6 @@ def deletar_usuario(id):
         raise UsuarioNaoEncontrado()
     
     db.session.delete(usuario)
-    db.session.commit()
+    db.session.flush()
 
     return jsonify ({"message":"Usuário deletado com sucesso!"}), 200
