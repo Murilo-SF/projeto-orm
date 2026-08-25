@@ -1,8 +1,5 @@
 # ---------------------------------------------------------------->>>IMPORTS<<<----------------------------------------------------------------
-from flask import Flask
-from flask_sqlalchemy.session import Session
 import pytest
-from sqlalchemy.orm.scoping import scoped_session
 from Projeto_ORM.app import create_app
 from Projeto_ORM.extensions import db
 from Projeto_ORM.models.tabela_usuario import Usuario
@@ -10,7 +7,6 @@ from Projeto_ORM.models.tabela_pedido import Pedido
 from alembic.config import Config
 from alembic import command
 from werkzeug.security import generate_password_hash
-import os
 from pathlib import Path
 
 # ---------------------------------------------------------------->>>FIXTURES<<<----------------------------------------------------------------

@@ -25,13 +25,14 @@ def registrar_usuario(data):
     nome = data.get('nome')
     senha = data.get('senha')
     role = data.get('role')
+    email = data.get('email', "NULL")
 
     if Usuario.query.filter_by(nome=nome).first():
         raise UsuarioJaExiste()
     
-    novo_usuario = Usuario(nome=nome, senha=generate_password_hash(senha), role=role)
+    novo_usuario = Usuario(nome=nome, senha=generate_password_hash(senha), role=role, email=email)
     db.session.add(novo_usuario)
-    db.session.commit()
+    db.session.flush()
 
     return jsonify ({"message":"Usuário cadastrado com sucesso!", "usuario":novo_usuario.to_dict()}), 201
 

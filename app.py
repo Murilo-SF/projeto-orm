@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 # ============================================================CONFIGURAÇÕES E BANCO DE DADOS============================================================
 from Projeto_ORM.extensions import db
 from Projeto_ORM.config import configs
+from Projeto_ORM.transaction import init_transaction
 
 # =======================================================================ERRORS=========================================================================
 from Projeto_ORM.errors.handlers import register_error_handlers
@@ -36,14 +37,16 @@ def create_app(config_name="development"):
 
     register_error_handlers(aplicativo)
 
+    init_transaction(aplicativo)
+
     return aplicativo
 
-# app = create_app('development')
+app = create_app()
 
 # ==================================================================CRIANDO TABELAS=====================================================================
 #with app.app_context():
 #    db.create_all()
 # Essa forma de criar as tabelas, é usado mais para aprendizado, pois com o Alembic, aproveitamos suas utilidades como se fosse um Git.
 
-# if __name__ == '__main__':
-    # app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
