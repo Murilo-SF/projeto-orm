@@ -50,7 +50,7 @@ def registrar_pedido(data):
     
     novo_pedido = Pedido(cliente_id=cliente_id, valor=valor)
     db.session.add(novo_pedido)
-    db.session.commit()
+    db.session.flush()
 
     return jsonify ({"message":"Pedido cadastrado com sucesso!", "pedido": novo_pedido.to_dict()}), 201
 
@@ -65,7 +65,7 @@ def atualizar_pedido(id_pedido, data):
     pedido.cliente_id = data.get('cliente_id', pedido.cliente_id)
     pedido.valor = data.get('valor', pedido.valor)
 
-    db.session.commit()    
+    db.session.flush()    
 
     return jsonify ({"message":"Pedido cadastrado com sucesso!", "pedido": pedido.to_dict()}), 200
 
@@ -78,6 +78,6 @@ def deletar_pedido(id_pedido):
         raise PedidoNaoEncontrado()
     
     db.session.delete(pedido)
-    db.session.commit()
+    db.session.flush()
 
     return jsonify ({"message": "Pedido deletado com sucesso!"}), 200
