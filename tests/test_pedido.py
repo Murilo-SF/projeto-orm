@@ -34,15 +34,15 @@ def test_buscar_pedido_admin(client, admin_user, headers_admin, pedido_admin):
     assert "pedidos" in resposta.get_json()
 
 
-def test_buscar_usuario_sem_admin(client, usuario_comum, headers_usuario):
+def test_buscar_pedido_sem_admin(client, usuario_comum, headers_usuario):
     resposta = client.get(f'/pedido/{usuario_comum.id}', headers=headers_usuario)
 
     assert resposta.status_code == 403
     assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"] == "ACESSO NEGADO!"
+    assert resposta.get_json()["error"] == "ACESSO NEGADO!" 
 
 
-def test_buscar_usuario_inexistente(client, admin_user, headers_admin):
+def test_buscar_pedido_usuario_inexistente(client, admin_user, headers_admin):
     resposta = client.get(f'/pedido/{admin_user.id + 1}', headers=headers_admin)
 
     assert resposta.status_code == 404
@@ -82,7 +82,7 @@ def test_deletar_pedido_admin(client, headers_admin, pedido_admin):
     assert resposta.get_json()["message"] == "Pedido deletado com sucesso!"
 
 
-def test_deletar_usuario_sem_admin(client, headers_usuario, pedido_admin):
+def test_deletar_pedido_sem_admin(client, headers_usuario, pedido_admin):
     resposta = client.delete(f'/pedido/deletar/{pedido_admin.id}', headers=headers_usuario)
 
     assert resposta.status_code == 403

@@ -11,51 +11,47 @@ def test_register_usuario(client):
 
 # ======================================================================TESTES ERRADOS======================================================================
 
-def test_register_faltando_nome(client, admin_user):
-    resposta = client.post("/auth/adicionar", json={"senha":"123456"})
+# Esse decorator serve para evitarmos repetição de testes e código, quando os testes tem a mesma regra de negócio, porém com dados diferentes
+@pytest.mark.parametrize(
+    "dados, campo",
+    [
+        ({"senha":"123456"}, "nome"), 
+        ({"nome":"Murilo"}, "senha")
+    ]
+) 
+def test_register_faltando_campo(client, campo, dados):
+    resposta = client.post('/auth/adicionar', json=dados)
     assert resposta.status_code == 400
     assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"]["nome"][0] == "Missing data for required field."
+    assert resposta.get_json()["error"][campo][0] == ("Missing data for required field.")
 
 
-def test_register_faltando_senha(client, admin_user):
-    resposta = client.post("/auth/adicionar", json={"nome":admin_user.nome})
-    assert resposta.status_code == 400
-    assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"]["senha"][0] == "Missing data for required field."
-
-
-def test_register_faltando_dados(client, admin_user):
+def test_register_faltando_dados(client):
     resposta = client.post("/auth/adicionar", json=None)
     assert resposta.status_code == 415
 
 
-def test_register_json_vazio(client, admin_user):
+def test_register_json_vazio(client):
     resposta = client.post("/auth/adicionar", json={})
     assert resposta.status_code == 400
     assert "error" in resposta.get_json()
     assert resposta.get_json()["error"] == {'nome': ['Missing data for required field.'], 'senha': ['Missing data for required field.']}
 
 
-def test_register_tipo_errado_nome(client, admin_user):
-    resposta = client.post("/auth/adicionar", json={"nome":1, "senha":"123456"})
+@pytest.mark.parametrize(
+        "dados, campo",
+        [
+            ({"nome":1, "senha":"123456"}, "nome"),
+            ({"nome":"Joaquim", "senha":1}, "senha"),
+            ({"nome":"Joaquim", "senha":"123456", "email":123}, "email")
+        ]
+)
+def test_register_tipo_errado_dados(client, dados, campo):
+    resposta = client.post('/auth/adicionar', json=dados)
+
     assert resposta.status_code == 400
     assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"]["nome"][0] == "Not a valid string."
-
-
-def test_register_tipo_errado_senha(client, admin_user):
-    resposta = client.post("/auth/adicionar", json={"nome":admin_user.nome, "senha":1})
-    assert resposta.status_code == 400
-    assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"]["senha"][0] == "Not a valid string."
-
-
-def test_register_tipo_errado_email(client, admin_user):
-    resposta = client.post("/auth/adicionar", json={"nome":admin_user.nome, "senha":"123456", "email":123})
-    assert resposta.status_code == 400
-    assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"]["email"][0] == "Not a valid string."
+    assert resposta.get_json()["error"][campo][0] == "Not a valid string."
 
 
 def test_register_chave_errada(client, admin_user):
@@ -97,7 +93,7 @@ def test_login(client, admin_user):
 
 # ==================================================================TESTE LOGIN ERRADO==================================================================
 
-def test_login_usuario_nao_encontrado(client, admin_user):
+def test_login_usuario_nao_encontrado(client):
     resposta = client.post("/auth/login", json={"nome":"Nome", "senha":"123456"})
     assert resposta.status_code == 404
     assert "error" in resposta.get_json()
@@ -109,39 +105,45 @@ def test_login_senha_incorreta(client, admin_user):
     assert "error" in resposta.get_json()
     assert resposta.get_json()["error"] == "SENHA INCORRETA!"
 
-def test_login_faltando_nome(client, admin_user):
-    resposta = client.post("/auth/login", json={"senha":"123456"})
+@pytest.mark.parametrize(
+        "dados, campo",
+        [
+            ({"senha":"123456"}, "nome"),
+            ({"nome":"Mauro"}, "senha")
+        ]
+)
+def test_login_faltando_dados(client, dados, campo):
+    resposta = client.post('auth/login', json=dados)
+
     assert resposta.status_code == 400
     assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"]["nome"][0] == "Missing data for required field."
+    assert resposta.get_json()["error"][campo][0] == "Missing data for required sfield."
 
-def test_login_faltando_senha(client, admin_user):
-    resposta = client.post("/auth/login", json={"nome":admin_user.nome})
-    assert resposta.status_code == 400
-    assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"]["senha"][0] == "Missing data for required field."
 
-def test_login_faltando_dados(client, admin_user):
+def test_login_faltando_dados(client):
     resposta = client.post("/auth/login", json=None)
     assert resposta.status_code == 415
 
-def test_login_json_vazio(client, admin_user):
+def test_login_json_vazio(client):
     resposta = client.post("/auth/login", json={})
     assert resposta.status_code == 400
     assert "error" in resposta.get_json()
     assert resposta.get_json()["error"] == {"nome":['Missing data for required field.'], "senha":['Missing data for required field.']}
 
-def test_login_tipo_errado_nome(client, admin_user):
-    resposta = client.post("/auth/login", json={"nome":1, "senha":"123456"})
-    assert resposta.status_code == 400
-    assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"]["nome"][0] == "Not a valid string."
+@pytest.mark.parametrize(
+        "dados, campos",
+        [
+            ({"nome":1, "senha":"123456"}, "nome"),
+            ({"nome":"Snoop Dog", "senha":1}, "senha")
+        ]
+)
+def test_login_tipo_errado_dados(client, dados, campos):
+    resposta = client.post('/auth/login', json=dados)
 
-def test_login_tipo_errado_senha(client, admin_user):
-    resposta = client.post("/auth/login", json={"nome":admin_user.nome, "senha":1})
     assert resposta.status_code == 400
     assert "error" in resposta.get_json()
-    assert resposta.get_json()["error"]["senha"][0] == "Not a valid string."
+    assert resposta.get_json()["error"][campos][0] == "Not a valid string."
+
 
 def test_login_chave_errada(client, admin_user):
     resposta = client.post("/auth/login", json={"nome":admin_user.nome, "senha":"123456", "idade":2})
