@@ -1,4 +1,7 @@
-from Projeto_ORM.models.tabela_usuario import Usuario
+import pytest
+
+pytestmark = pytest.mark.usuario
+
 
 def test_buscar_usuario_admin(client, headers_admin):
     resposta = client.get('/usuario/me', headers=headers_admin)

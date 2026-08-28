@@ -1,3 +1,8 @@
+import pytest
+
+pytestmark = pytest.mark.pedido
+
+
 def test_criar_pedido_admin(client, admin_user, headers_admin):
     resposta = client.post('pedido/adicionar', json={"cliente_id":admin_user.id, "valor":100}, headers=headers_admin)
 
