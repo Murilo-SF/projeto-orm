@@ -36,21 +36,14 @@ def test_atualizar_usuario_sem_admin(usuario_comum, headers_usuario, client):
 
 
 def test_deletar_usuario_sem_admin(client, headers_usuario, usuario_comum):
-    usuario = Usuario.query.filter_by(nome=(usuario_comum.nome)).first()
-    assert usuario is not None
-    resposta = client.delete(f'usuario/deletar/{int(usuario.id)}', headers=headers_usuario)
+    resposta = client.delete(f'usuario/deletar/{usuario_comum.id}', headers=headers_usuario)
     assert resposta.status_code == 403
     assert "error" in resposta.get_json()
     assert resposta.get_json()["error"] == "ACESSO NEGADO!"
 
 def test_deletar_usuario_com_admin(client, headers_admin, usuario_comum):
-    usuario = Usuario.query.filter_by(nome=(usuario_comum.nome)).first()
-
-    assert usuario is not None
-
-    resposta = client.delete(f'usuario/deletar/{int(usuario.id)}', headers=headers_admin)
+    resposta = client.delete(f'usuario/deletar/{usuario_comum.id}', headers=headers_admin)
 
     assert resposta.status_code == 200
     assert "message" in resposta.get_json()
     assert resposta.get_json()["message"] == "Usuário deletado com sucesso!"
-    admin = Usuario.query.filter_by(nome="Admin Teste").first()

@@ -67,7 +67,7 @@ def atualizar_pedido(id_pedido, data):
 
     db.session.flush()    
 
-    return jsonify ({"message":"Pedido cadastrado com sucesso!", "pedido": pedido.to_dict()}), 200
+    return jsonify ({"message":"Pedido atualizado com sucesso!", "pedido": pedido.to_dict()}), 200
 
 # ==================================================================Deletar Pedido==================================================================
 def deletar_pedido(id_pedido):
