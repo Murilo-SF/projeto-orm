@@ -41,7 +41,7 @@ def create_app(config_name="development"):
 
     return aplicativo
 
-app = create_app()
+app = create_app() # Não precisamos passar development, pois o padrão já o mesmo.
 
 # ==================================================================CRIANDO TABELAS=====================================================================
 #with app.app_context():
