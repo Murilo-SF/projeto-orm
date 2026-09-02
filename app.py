@@ -49,4 +49,4 @@ app = create_app() # Não precisamos passar development, pois o padrão já o me
 # Essa forma de criar as tabelas, é usado mais para aprendizado, pois com o Alembic, aproveitamos suas utilidades como se fosse um Git.
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
