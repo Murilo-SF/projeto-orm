@@ -18,7 +18,7 @@ def buscar_usuario_id():
     return service_usuario.buscar_usuario(id_usuario)
 
 @usuario_bp.route('/todos', methods=['GET'])
-@role_required("admin")
+# @role_required("admin")
 def usuarios():
     return service_usuario.listar_usuarios()
 

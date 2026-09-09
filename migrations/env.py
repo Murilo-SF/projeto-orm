@@ -12,7 +12,7 @@ from Projeto_ORM.app import create_app
 from Projeto_ORM.extensions import db
 
 config = context.config
-app = create_app("testing")
+app = create_app("development")
 config.set_main_option("sqlalchemy.url", app.config["SQLALCHEMY_DATABASE_URI"])
 
 target_metadata = db.metadata

@@ -5,13 +5,13 @@ class BaseConfig:
     
 #========================================================================CONFIG DEVELOPMENT========================================================================
 class DevelopmentConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:admin@localhost/empresa' # Faz a conexão com o nosso banco de dados.
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:admin@mysql/empresa' # Faz a conexão com o nosso banco de dados.
     JWT_SECRET_KEY = 'chave-development-chave-development-chave-development' # Criamos a assinatura do nosso token
     DEBUG = True 
 
 #========================================================================CONFIG TESTING========================================================================
 class TestingConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:admin@localhost/empresa_test'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:admin@mysql/empresa_test'
     JWT_SECRET_KEY = 'chave-teste-chave-teste-chave-teste'
     TESTING = True
 
