@@ -7,7 +7,7 @@ services:
       - mysql_data:/var/lib/mysql
 
   api:
-    build: .
+    image: murilosf/projeto-orm:latest
     ports:
       - "5000:5000"
 
